@@ -39,8 +39,24 @@
     controls.autoRotate = true
     const loader = new GLTFLoader();
     const scene = new THREE.Scene();
+
+    let modelUrl = window.location.href
+    const modelToUrl = () => {
+        if (modelUrl.match("bird")) {
+            let urlToModel = modelUrl.match('bird')[0] + ".glb"
+            return urlToModel
+        } else if (modelUrl.match("benderko")) {
+            let urlToModel = modelUrl.match('benderko')[0] + ".glb"
+            return urlToModel
+        } else {
+            let urlToModel = 'benderko.glb'
+            return urlToModel
+        }
+        return modelUrl
+    }
+
     const geometry = loader.load(
-        'benderko.glb', (gltf) =>{
+        modelToUrl(), (gltf) =>{
             gltf.scene.position.x = -20
             scene.add(gltf.scene)
         });
@@ -63,7 +79,7 @@
         canvas.height = window.innerHeight * 0.99
         canvas.width = window.innerWidth * 0.99
         renderer.setSize( canvas.width, canvas.height)
-        console.log(window.innerHeight, window.innerWidth)
     }
+
 
 </script>
